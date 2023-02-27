@@ -1,4 +1,4 @@
-import{ Controller, Post, Get, Put, Body, Param, Query, NotFoundException} from '@nestjs/common'
+import{ Controller, Post, Get, Put, Body, Param, Query, NotFoundException, Delete} from '@nestjs/common'
 import { ProductService} from './service.product'
 import{ CreateProductDTO} from './dto/dto.product'
 import { Product } from 'src/utils/schemas/product.schema'
@@ -26,5 +26,10 @@ export class ProductController{
   async updateProduct(@Param('id') id: string, @Body()createProductDto : CreateProductDTO){
        const product = await this.productService.updateProduct(id, createProductDto)
        return product
+  }
+  @Delete('/:id')
+  async deleteProduct(@Param('id') id: string){
+    const product = await this.productService.deleteProduct(id)
+    return {messagem:'OK'}
   }
 }
