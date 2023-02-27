@@ -1,7 +1,7 @@
 import{ Controller, Post, Get, Put, Body, Param, Query, NotFoundException, Delete} from '@nestjs/common'
 import { ProductService} from './service.product'
 import{ CreateProductDTO} from './dto/dto.product'
-import { Product } from 'src/utils/schemas/product.schema'
+import {FilterProductDTO} from './dto/dto.filter_product'
 
 @Controller('/story/products')
 export class ProductController{
@@ -32,4 +32,10 @@ export class ProductController{
     const product = await this.productService.deleteProduct(id)
     return {messagem:'OK'}
   }
+  @Get('/search/:category')
+  async filterProduct(@Param('category') category: string){
+    const product = await this.productService.FilterProduct(category)
+    return product
+  }
+
 }
