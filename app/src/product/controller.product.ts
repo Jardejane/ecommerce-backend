@@ -1,6 +1,7 @@
 import{ Controller, Post, Get, Put, Body, Param, Query, NotFoundException} from '@nestjs/common'
 import { ProductService} from './service.product'
 import{ CreateProductDTO} from './dto/dto.product'
+import { Product } from 'src/utils/schemas/product.schema'
 
 @Controller('/story/products')
 export class ProductController{
@@ -17,9 +18,13 @@ export class ProductController{
     return product
   }
   @Get('/:id')
-  async getId (@Param('id') _id: string){
-    const product = await this.productService.getIdProduct(_id)
-    if (!product) throw new NotFoundException('Product does not exist!');
+  async getId (@Param('id') id: string){
+    const product = await this.productService.getIdProduct(id)
     return product;
+  }
+  @Put('/:id')
+  async updateProduct(@Param('id') id: string, @Body()createProductDto : CreateProductDTO){
+       const product = await this.productService.updateProduct(id, createProductDto)
+       return product
   }
 }

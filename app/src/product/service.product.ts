@@ -17,8 +17,12 @@ export class ProductService {
         const getAllProduct = await this.productModel.find().exec()
         return getAllProduct
     }
-    async getIdProduct(_id: string): Promise<Product>{
-        const getIdProduct = await this.productModel.findById(_id).exec()
+    async getIdProduct(id: string): Promise<Product>{
+        const getIdProduct = await this.productModel.findById(id).exec()
         return getIdProduct
+    }
+    async updateProduct(id: string, createProductDto: CreateProductDTO){
+        const upadateProduct = await this.productModel.findByIdAndUpdate(id,createProductDto , {new:true})
+        return upadateProduct;
     }
 }
