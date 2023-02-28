@@ -8,6 +8,7 @@ import { Roles } from './decorators/roles.decorator';
 import { Role } from './enums/role.enum';
 import { RolesGuard } from './guards/roles.guard';
 import { ApiTags} from '@nestjs/swagger';
+import{LoginDto} from './dto'
 
 @ApiTags("Auth")
 @Controller('auth')
@@ -20,10 +21,9 @@ export class AuthController {
     return user;
   }
 
-  @UseGuards(LocalAuthGuard)
   @Post('/login')
-  async login(@Request() req) {
-    return this.authService.login(req.user);
+  async login(@Body() dto: LoginDto) {
+    return this.authService.login(dto);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)

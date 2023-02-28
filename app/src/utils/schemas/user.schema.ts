@@ -22,7 +22,6 @@ export class User {
   @ApiProperty()
   @Prop()
   roles: Role[];
-  static username: any;
 
 }
 

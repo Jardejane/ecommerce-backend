@@ -1,3 +1,4 @@
+import { LoginDto } from './dto';
 import { Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt'; 
@@ -19,10 +20,19 @@ export class AuthService {
     return null;
   }
 
-  async login(user: any) {
-    const payload = { username: user.username, sub: user._id, roles: user.roles };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
+  async login(user: LoginDto) {
+    const isValid = await this.validateUser(user.username, user.password);
+    if (isValid) {
+      const payload = {
+        username: isValid.username,
+        sub: isValid._id,
+        roles: isValid.roles,
+      };
+      return {
+        access_token: this.jwtService.sign(payload),
+      };
+    } else {
+      throw new Error('Cannot find user');
+    }
   }
 }
