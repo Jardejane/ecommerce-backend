@@ -2,7 +2,9 @@ import{ Controller, Post, Get, Put, Body, Param, Query, NotFoundException, Delet
 import { ProductService} from './service.product'
 import{ CreateProductDTO} from './dto/dto.product'
 import {FilterProductDTO} from './dto/dto.filter_product'
+import { ApiTags} from '@nestjs/swagger';
 
+@ApiTags("Product")
 @Controller('/story/products')
 export class ProductController{
   constructor(private productService : ProductService){}
