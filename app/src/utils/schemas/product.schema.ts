@@ -8,6 +8,9 @@ export type ProductDocument = Product & Document
 export class Product {
     @ApiProperty()
     @Prop()
+    image: string;
+    @ApiProperty()
+    @Prop()
     id : string;
     
     @ApiProperty()
