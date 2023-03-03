@@ -25,8 +25,9 @@ export class UserService {
   }
 
   async updateUser(id: string,  createUserDTO: CreateUserDTO) {
-    const upadateProduct = await this.userModel.findByIdAndUpdate(id, createUserDTO, { new: true })
-    return upadateProduct;
+    const newUser = await this.userModel.findByIdAndUpdate(id, createUserDTO, { new: true })
+    newUser.password = await bcrypt.hash(newUser.password, 10);
+    return newUser.save();
 }
 async deleteUser(id: string): Promise<any> {
   const deleteUser = await this.userModel.findByIdAndRemove(id)
